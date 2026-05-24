@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68be386b28d3b047bd6f0e0fe9bde76, type: 3}
+  m_Name: NetworkConfig
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Config.NetworkConfig
+  <PlayerPrefab>k__BackingField:
+    RawGuidValue: 79437621766367443999735ccf1abe56
+  <PlayerSpawnerPrefab>k__BackingField: {fileID: 8919443223539957520, guid: 61cc96c5bae40c7438771b4d475224e1, type: 3}
+  <InputManager>k__BackingField: {fileID: 4295142959051089387, guid: 70b34ac7caaf95f46a427285a53d3c8f, type: 3}
