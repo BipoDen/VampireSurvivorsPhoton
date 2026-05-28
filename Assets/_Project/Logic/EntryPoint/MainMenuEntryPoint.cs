@@ -18,7 +18,15 @@ namespace _Project.Logic.EntryPoint
         private JoinSessionPresenter _joinSessionPresenter;
         private JoinSessionView _joinSessionView;
 
-        public MainMenuEntryPoint(MainMenuView mainView, MainMenuPresenter mainPresenter, WindowsRepository windowsRepository, IWindowSwitcher windowSwitcher, CreateSessionPresenter createSessionPresenter, CreateSessionView createSessionView, NetworkRunner runner, INetworkSessionService sessionService, NetworkRunnerCallbacksAdapter adapter, JoinSessionPresenter joinSessionPresenter, JoinSessionView joinSessionView)
+        public MainMenuEntryPoint(MainMenuView mainView, 
+            MainMenuPresenter mainPresenter, 
+            WindowsRepository windowsRepository, 
+            IWindowSwitcher windowSwitcher, 
+            NetworkRunner runner, 
+            INetworkSessionService sessionService, 
+            NetworkRunnerCallbacksAdapter adapter, 
+            JoinSessionPresenter joinSessionPresenter, 
+            JoinSessionView joinSessionView)
         {
             _runner = runner;
             _adapter = adapter;

@@ -151,7 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Installers.MainMenuInstaller
   _canvas: {fileID: 1468229630}
   _mainView: {fileID: 6791515650371177884, guid: 9a72b9c7671ac874e9e8e2e13222f18c, type: 3}
-  _createView: {fileID: 5942869910188213541, guid: 2a51ad1bdd2ce314fa425dcc251a6c2c, type: 3}
   _joinView: {fileID: 897794326354165650, guid: 7e2a7997593fc664c947a5cc77b88be4, type: 3}
 --- !u!114 &195338829
 MonoBehaviour:

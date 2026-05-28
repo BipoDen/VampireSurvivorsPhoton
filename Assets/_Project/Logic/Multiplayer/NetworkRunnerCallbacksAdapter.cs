@@ -9,6 +9,8 @@ namespace _Project.Logic.Multiplayer
 {
     public class NetworkRunnerCallbacksAdapter : MonoBehaviour, INetworkRunnerCallbacks
     {
+        public event Action<NetworkRunner, PlayerRef> PlayerJoined;
+        public event Action<NetworkRunner, PlayerRef> PlayerLeft;
         public event Action<NetworkRunner> SceneLoad;
         public event Action<NetworkRunner, NetworkInput> Input;
         public event Action<NetworkRunner, ShutdownReason> Shutdown;
@@ -17,9 +19,15 @@ namespace _Project.Logic.Multiplayer
 
         public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
 
-        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
+        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+        {
+            PlayerJoined?.Invoke(runner, player);
+        }
 
-        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
+        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+        {
+            PlayerLeft?.Invoke(runner, player);
+        }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
         {

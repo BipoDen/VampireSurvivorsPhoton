@@ -17,7 +17,6 @@ namespace _Project.Logic.UI.Gameplay
         public void Initialize(GameplayUIView view)
         {
             _view = view;
-            Debug.Log("GameplayUIPresenter Initialize");
             _view.SetSessionID(_runner.SessionInfo.Name);
         }
     }
