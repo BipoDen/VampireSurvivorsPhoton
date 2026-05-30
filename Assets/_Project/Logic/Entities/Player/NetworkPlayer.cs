@@ -1,41 +1,37 @@
 using System;
 using _Project.Logic.Config.Gameplay;
+using _Project.Logic.Factories;
 using _Project.Logic.Multiplayer.Gameplay;
 using _Project.Logic.Services;
+using _Project.Logic.UI.Gameplay;
 using Fusion;
 using UnityEngine;
 using Zenject;
 
 namespace _Project.Logic.Entities.Player
 {
-    public class NetworkPlayer : NetworkBehaviour, IAfterSpawned, IDamageable, IHealable
+    public class NetworkPlayer : NetworkBehaviour, IAfterSpawned
     {
-        private float _maxHealth;
-        private float _health;
-        
-        public event Action<float, float> HealthChanged;
-        public event Action OnDeath;
+        [SerializeField] private Transform _healthBarAnchor;
         
         private PlayersRepository _playersRepository;
         private PlayerConfig _playerConfig;
         private CameraFollow _cameraFollow;
+        private Camera _camera;
+        private HealthBarFactory _healthBarFactory;
+        
+        public event Action OnDied;
+        public event Action<Vector2> OnMove;
 
         [Inject]
-        public void Construct(PlayersRepository playersRepository, CameraFollow cameraFollow)
+        public void Construct(PlayersRepository playersRepository, CameraFollow cameraFollow,
+            HealthBarFactory healthBarFactory, PlayerConfig playerConfig)
         {
             _playersRepository = playersRepository;
             _cameraFollow = cameraFollow;
-        }
-
-        public void Initialize(PlayerConfig playerConfig)
-        {
+            _camera = _cameraFollow.GetComponent<Camera>();
+            _healthBarFactory = healthBarFactory;
             _playerConfig = playerConfig;
-
-            if (HasStateAuthority)
-            {
-                _maxHealth = _playerConfig.Health;
-                _health = _playerConfig.Health;
-            }
         }
 
         public override void FixedUpdateNetwork()
@@ -53,40 +49,43 @@ namespace _Project.Logic.Entities.Player
             }
         }
 
+        private void LateUpdate()
+        {
+            OnMove?.Invoke(transform.position);
+        }
+
         private void TryAttack()
         {
             
         }
+        
 
-        public void TakeDamage(float damage)
+        private void OnHpChanged()
         {
-            _health = Mathf.Max(_health - damage, 0);
-            HealthChanged?.Invoke(_health, _maxHealth);
-            if(_health == 0)
-            {
-                Die();
-            }
+            
         }
-
-        public void Heal(float heal)
-        {
-            _health = Mathf.Min(_health + heal, _maxHealth);
-            HealthChanged?.Invoke(_health, _maxHealth);
-        }
-
+        
         private void Die()
         {
             _playersRepository.UnregisterPlayer(Object.InputAuthority);
-            OnDeath?.Invoke();
+            OnDied?.Invoke();
         }
-                
+    
         public void AfterSpawned()
         {
             _playersRepository.RegisterPlayer(Object.InputAuthority, this);
             if (HasInputAuthority)
                 _cameraFollow.SetTarget(transform);
 
-            HealthChanged?.Invoke(_health, _maxHealth);
+            if (HasInputAuthority)
+                _healthBarFactory.CreateHUD(this);
+            else
+                _healthBarFactory.Create(this, _healthBarAnchor);
+        }
+
+        public override void Despawned(NetworkRunner runner, bool hasState)
+        {
+            Die();
         }
     }
 }

@@ -22,9 +22,12 @@ namespace _Project.Logic.Installers
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private SpawnConfig _spawnConfig;
+        [SerializeField] private HealthBarView _healthBarPrefab;
+        [SerializeField] private HealthBarHUDView _hudHealthBarPrefab;
 
         public override void InstallBindings()
         {
+            Container.Bind<Canvas>().FromInstance(_canvas).AsSingle();
             BindServices();
             BindConnection();
             BindEntities();
@@ -38,6 +41,9 @@ namespace _Project.Logic.Installers
             Container.Bind<PlayerConfig>().FromInstance(_playerConfig).AsSingle();
             Container.Bind<EnemyConfig>().FromInstance(_enemyConfig).AsSingle();
             Container.Bind<SpawnConfig>().FromInstance(_spawnConfig).AsSingle();
+            Container.Bind<HealthBarView>().FromInstance(_healthBarPrefab).AsSingle();
+            Container.Bind<HealthBarHUDView>().FromInstance(_hudHealthBarPrefab).AsSingle();
+            Container.Bind<HealthBarFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<EnemyFactory>().AsSingle().NonLazy();
             Container.Bind<SpawnPositionProvider>().AsSingle();

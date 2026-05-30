@@ -487,6 +487,8 @@ MonoBehaviour:
   _playerConfig: {fileID: 11400000, guid: 8d5e0c7473bfdae48903f996931650ae, type: 2}
   _enemyConfig: {fileID: 11400000, guid: d0f404b927926724287f0df310cd9c6a, type: 2}
   _spawnConfig: {fileID: 11400000, guid: ca5017929cdb0b246a9a06deb15bfeb8, type: 2}
+  _healthBarPrefab: {fileID: 2940624867856604450, guid: e4ee1cefe7522b7418b7f1d0d37de02b, type: 3}
+  _hudHealthBarPrefab: {fileID: 6459136202244662114, guid: 2fcf72a790b5f714ebd0036290d54d17, type: 3}
 --- !u!114 &1758842796
 MonoBehaviour:
   m_ObjectHideFlags: 0

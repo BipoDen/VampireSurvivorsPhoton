@@ -8,11 +8,12 @@ using Zenject;
 
 namespace _Project.Logic.Entities.Enemy
 {
-    public class NetworkEnemy : NetworkBehaviour, IDamageable
+    public class NetworkEnemy : NetworkBehaviour
     {
         private ITargetService _targetService;
         private EnemyConfig _config;
         private Rigidbody2D _rb;
+        
         [Networked] private NetworkPlayer Target { get; set; }
 
         [Networked] private TickTimer AttackCooldown { get; set; }
@@ -53,7 +54,7 @@ namespace _Project.Logic.Entities.Enemy
         {
             if (CanAttack() && AttackCooldown.ExpiredOrNotRunning(Runner))
             {
-                Target.TakeDamage(_config.Damage);
+                //Target.TakeDamage(_config.Damage);
                 AttackCooldown = TickTimer.CreateFromSeconds(Runner, _config.AttackInterval);
             }
         }
@@ -72,7 +73,7 @@ namespace _Project.Logic.Entities.Enemy
 
         public void TakeDamage(float damage)
         {
-            
+            //_health.TakeDamage(damage);
         }
     }
 }

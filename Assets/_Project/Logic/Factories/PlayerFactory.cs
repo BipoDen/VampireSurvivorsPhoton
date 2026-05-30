@@ -33,13 +33,12 @@ namespace _Project.Logic.Factories
                 return;
             
             var networkPlayer = runner.Spawn(_playerConfig.PlayerPrefab, Vector3.zero, Quaternion.identity, player).GetComponent<NetworkPlayer>();
-            networkPlayer.OnDeath += Despawn;
-            networkPlayer.Initialize(_playerConfig);
+            networkPlayer.OnDied += Despawn;
 
             void Despawn()
             {
-                networkPlayer.OnDeath -= Despawn;
-                runner.Disconnect(player);
+                networkPlayer.OnDied -= Despawn;
+                //runner.Disconnect(player);
             }
         }
 
