@@ -34,11 +34,16 @@ namespace _Project.Logic.Factories
             
             var networkPlayer = runner.Spawn(_playerConfig.PlayerPrefab, Vector3.zero, Quaternion.identity, player).GetComponent<NetworkPlayer>();
             networkPlayer.OnDied += Despawn;
+            _playersRepository.RegisterPlayer(player, networkPlayer);
 
             void Despawn()
             {
+                if(!runner.IsServer)
+                    return;
+                
                 networkPlayer.OnDied -= Despawn;
-                //runner.Disconnect(player);
+                _playersRepository.UnregisterPlayer(player);
+                runner.Disconnect(player);
             }
         }
 

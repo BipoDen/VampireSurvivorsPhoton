@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8419665a04240679affd25de1c3a110, type: 3}
+  m_Name: ProjectileConfig
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Config.Gameplay.ProjectileConfig
+  <ProjectilePrefab>k__BackingField:
+    RawGuidValue: 63b7f12482621be41badc88ae4b4bd90
+  <LifeTime>k__BackingField: 5
+  <Speed>k__BackingField: 4

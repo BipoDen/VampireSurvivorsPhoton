@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
 
@@ -12,5 +13,7 @@ namespace _Project.Logic.Config.Gameplay
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public float AttackInterval { get; private set; }
         [field: SerializeField] public float AttackRange { get; private set; }
+        
+        [field: SerializeField] public List<DropEntry> Drops { get; private set; }
     }
 }

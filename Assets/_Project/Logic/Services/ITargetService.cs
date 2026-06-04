@@ -7,6 +7,6 @@ namespace _Project.Logic.Services
     public interface ITargetService
     {
         NetworkPlayer GetClosestPlayer(Vector3 from);
-        NetworkEnemy GetClosestEnemy(Vector3 from);
+        NetworkEnemy GetClosestEnemy(Vector3 from, float attackRadius);
     }
 }

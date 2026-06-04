@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Logic.UI.Gameplay
 {
-    public class GameplayUIPresenter
+    public class GameplayUIPresenter 
     {
         private GameplayUIView _view;
         

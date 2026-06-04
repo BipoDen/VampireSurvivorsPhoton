@@ -19,3 +19,5 @@ MonoBehaviour:
   <Damage>k__BackingField: 10
   <AttackInterval>k__BackingField: 2
   <AttackRange>k__BackingField: 5
+  <EXPtoLevel>k__BackingField: 5
+  <ExpMultiplier>k__BackingField: 1.2

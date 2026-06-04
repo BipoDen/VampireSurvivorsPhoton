@@ -1,6 +1,7 @@
 using System;
 using _Project.Logic.Config;
 using _Project.Logic.Config.Gameplay;
+using _Project.Logic.Config.Gameplay.Upgrades;
 using _Project.Logic.Entities.Player;
 using _Project.Logic.EntryPoint;
 using _Project.Logic.Factories;
@@ -22,8 +23,12 @@ namespace _Project.Logic.Installers
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private SpawnConfig _spawnConfig;
+        [SerializeField] private ProjectileConfig _projectileConfig;
         [SerializeField] private HealthBarView _healthBarPrefab;
         [SerializeField] private HealthBarHUDView _hudHealthBarPrefab;
+        [SerializeField] private ExpBarHUDView _hudExpBarPrefab;
+        [SerializeField] private UpgradeRegistry _upgrades;
+        [SerializeField] private UpgradeWindow _upgradeWindow;
 
         public override void InstallBindings()
         {
@@ -38,14 +43,24 @@ namespace _Project.Logic.Installers
         private void BindEntities()
         {
             Container.Bind<CameraFollow>().FromInstance(_camera).AsSingle();
+            
             Container.Bind<PlayerConfig>().FromInstance(_playerConfig).AsSingle();
             Container.Bind<EnemyConfig>().FromInstance(_enemyConfig).AsSingle();
             Container.Bind<SpawnConfig>().FromInstance(_spawnConfig).AsSingle();
+            Container.Bind<ProjectileConfig>().FromInstance(_projectileConfig).AsSingle();
+            Container.Bind<UpgradeRegistry>().FromInstance(_upgrades).AsSingle();
+            
             Container.Bind<HealthBarView>().FromInstance(_healthBarPrefab).AsSingle();
             Container.Bind<HealthBarHUDView>().FromInstance(_hudHealthBarPrefab).AsSingle();
-            Container.Bind<HealthBarFactory>().AsSingle();
+            Container.Bind<ExpBarHUDView>().FromInstance(_hudExpBarPrefab).AsSingle();
+            Container.Bind<UpgradeWindow>().FromInstance(_upgradeWindow).AsSingle();
+            
+            Container.Bind<GameplayUIFactory>().AsSingle();
+            Container.Bind<ProjectileFactory>().AsSingle();
+            Container.Bind<DropFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<EnemyFactory>().AsSingle().NonLazy();
+            
             Container.Bind<SpawnPositionProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemiesSpawner>().AsSingle();
         }
@@ -61,6 +76,7 @@ namespace _Project.Logic.Installers
             Container.Bind<PlayersRepository>().AsSingle();
             Container.Bind<EnemiesRepository>().AsSingle();
             Container.BindInterfacesAndSelfTo<TargetService>().AsSingle();
+            Container.Bind<UpgradeService>().AsSingle();
         }
 
         private void BindUI()

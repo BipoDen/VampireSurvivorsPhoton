@@ -11,12 +11,14 @@ namespace _Project.Logic.Factories
         private readonly NetworkRunner _runner;
         private readonly EnemiesRepository _repository;
         private readonly EnemyConfig _config;
+        private readonly DropFactory _dropFactory;
 
-        public EnemyFactory(NetworkRunner runner, EnemiesRepository repository, EnemyConfig config)
+        public EnemyFactory(NetworkRunner runner, EnemiesRepository repository, EnemyConfig config, DropFactory dropFactory)
         {
             _runner = runner;
             _repository = repository;
             _config = config;
+            _dropFactory = dropFactory;
         }
 
         public void CreateEnemy(Vector2 position)
@@ -24,14 +26,16 @@ namespace _Project.Logic.Factories
             if(!_runner.IsServer)
                 return;
             
-            var enemy = _runner.Spawn(_config.EnemyPrefab, position, Quaternion.identity).GetComponent<NetworkEnemy>();
-            _repository.RegisterEnemy(enemy);
-            enemy.OnDeath += Despawn;
+            var networkEnemy = _runner.Spawn(_config.EnemyPrefab, position, Quaternion.identity);
+            var enemy = networkEnemy.GetComponent<NetworkEnemy>();
+            enemy.Initialize(_config);
+            enemy.OnDied += Despawn;
 
             void Despawn()
             {
-                _repository.UnregisterEnemy(enemy);
-                enemy.OnDeath -= Despawn;
+                _dropFactory.SpawnDrop(_config.Drops, enemy.transform.position);
+                _runner.Despawn(networkEnemy);
+                enemy.OnDied -= Despawn;
             }
         }
     }

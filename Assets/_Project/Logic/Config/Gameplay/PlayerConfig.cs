@@ -12,5 +12,7 @@ namespace _Project.Logic.Config.Gameplay
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public float AttackInterval { get; private set; }
         [field: SerializeField] public float AttackRange { get; private set; }
+        [field: SerializeField] public float EXPtoLevel { get; private set; }
+        [field: SerializeField] public float ExpMultiplier { get; private set; }
     }
 }

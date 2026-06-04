@@ -15,4 +15,4 @@ MonoBehaviour:
   <MaxAttempts>k__BackingField: 10
   <MinDistance>k__BackingField: 10
   <MaxDistance>k__BackingField: 15
-  <SpawnDelay>k__BackingField: 5
+  <SpawnDelay>k__BackingField: 3

@@ -16,5 +16,10 @@ namespace _Project.Logic.UI.Gameplay
                 screenPosition.y - Screen.height / 2);
             _rectTransform.anchoredPosition = position;
         }
+
+        public void SetHealthValue(float currentHealth, float maxHealth)
+        {
+            _slider.value = currentHealth / maxHealth;
+        }
     }
 }

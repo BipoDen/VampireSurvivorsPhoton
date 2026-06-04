@@ -22,15 +22,38 @@ namespace _Project.Logic.Services
             foreach (var playerKey in _playersRepository.Players)
             {
                 var player = playerKey.Value;
+                if(!player.IsAlive) continue;
                 float dist = (player.transform.position - from).sqrMagnitude;
-                if (dist < bestDist) { bestDist = dist; nearest = player; }
+                if (dist < bestDist)
+                {
+                    bestDist = dist; 
+                    nearest = player;
+                }
             }
             return nearest;
         }
 
-        public NetworkEnemy GetClosestEnemy(Vector3 from)
+        public NetworkEnemy GetClosestEnemy(Vector3 from, float attackRadius)
         {
-            throw new System.NotImplementedException();
+            NetworkEnemy nearest = null;
+            float bestDist = float.MaxValue;
+            float radiusSqr = Mathf.Pow(attackRadius, 2);
+            foreach (var enemy in _enemiesRepository.Enemies)
+            {
+                if (enemy == null) continue;
+                if(!enemy.IsAlive) continue;
+                
+                float dist = (enemy.transform.position - from).sqrMagnitude;
+        
+                if (dist > radiusSqr) continue;
+                
+                if (dist < bestDist)
+                {
+                    bestDist = dist; 
+                    nearest = enemy;
+                }
+            }
+            return nearest;
         }
     }
 }

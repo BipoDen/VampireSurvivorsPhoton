@@ -19,3 +19,12 @@ MonoBehaviour:
   <Damage>k__BackingField: 5
   <AttackInterval>k__BackingField: 2
   <AttackRange>k__BackingField: 1.5
+  <Drops>k__BackingField:
+  - Item: {fileID: 11400000, guid: 9e96830566f55ea428a54323a654ced9, type: 2}
+    Chance: 1
+    MinCount: 1
+    MaxCount: 2
+  - Item: {fileID: 11400000, guid: a00b005bf56e7054fb5642551f31177e, type: 2}
+    Chance: 0.3
+    MinCount: 1
+    MaxCount: 1

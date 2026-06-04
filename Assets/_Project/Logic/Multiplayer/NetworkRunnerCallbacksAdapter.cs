@@ -14,6 +14,7 @@ namespace _Project.Logic.Multiplayer
         public event Action<NetworkRunner> SceneLoad;
         public event Action<NetworkRunner, NetworkInput> Input;
         public event Action<NetworkRunner, ShutdownReason> Shutdown;
+        public event Action<NetworkRunner, HostMigrationToken> HostMigration;
 
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
 
@@ -59,7 +60,10 @@ namespace _Project.Logic.Multiplayer
 
         public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
 
-        public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
+        public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+        {
+            HostMigration?.Invoke(runner, hostMigrationToken);
+        }
 
         public void OnSceneLoadDone(NetworkRunner runner)
         {

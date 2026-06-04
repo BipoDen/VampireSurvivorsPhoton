@@ -487,8 +487,12 @@ MonoBehaviour:
   _playerConfig: {fileID: 11400000, guid: 8d5e0c7473bfdae48903f996931650ae, type: 2}
   _enemyConfig: {fileID: 11400000, guid: d0f404b927926724287f0df310cd9c6a, type: 2}
   _spawnConfig: {fileID: 11400000, guid: ca5017929cdb0b246a9a06deb15bfeb8, type: 2}
+  _projectileConfig: {fileID: 11400000, guid: 4297ce9d1222205449ac11c521e822a4, type: 2}
   _healthBarPrefab: {fileID: 2940624867856604450, guid: e4ee1cefe7522b7418b7f1d0d37de02b, type: 3}
   _hudHealthBarPrefab: {fileID: 6459136202244662114, guid: 2fcf72a790b5f714ebd0036290d54d17, type: 3}
+  _hudExpBarPrefab: {fileID: 6939403054413045058, guid: ec2692a2e215c4341a233d3b37d7e50d, type: 3}
+  _upgrades: {fileID: 11400000, guid: 93dc316399eabf24a8ceafede0fd37c7, type: 2}
+  _upgradeWindow: {fileID: 1279448564987278853, guid: 2661c622d40c9304388a4fe20389a49c, type: 3}
 --- !u!114 &1758842796
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 6649972016621312275}
   - component: {fileID: 6488547882967274220}
   - component: {fileID: 8010958442775683189}
-  - component: {fileID: 8579691391601620290}
+  - component: {fileID: 8935478607046930471}
   - component: {fileID: 4066502108709273921}
   - component: {fileID: 76034772492926758}
-  - component: {fileID: 8935478607046930471}
+  - component: {fileID: 8579691391601620290}
+  - component: {fileID: 6069747854513085217}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -68,21 +69,46 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 8579691391601620290}
   - {fileID: 76034772492926758}
+  - {fileID: 8579691391601620290}
+  - {fileID: 6069747854513085217}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &8579691391601620290
-MonoBehaviour:
+--- !u!58 &8935478607046930471
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2486610794126678901}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50bb25c2145c4cfdb85c46aab9364b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Entities.Enemy.NetworkEnemy
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!50 &4066502108709273921
 Rigidbody2D:
   serializedVersion: 5
@@ -133,42 +159,37 @@ MonoBehaviour:
     Position: 0.01
     Rotation: 0.01
     Scale: 0.01
---- !u!58 &8935478607046930471
-CircleCollider2D:
+--- !u!114 &8579691391601620290
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2486610794126678901}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50bb25c2145c4cfdb85c46aab9364b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Entities.Enemy.NetworkEnemy
+  _stats: {fileID: 6069747854513085217}
+--- !u!114 &6069747854513085217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486610794126678901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73bbe98e28944a8abdb64d9fb30a2718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Entities.Player.EntityStats
+  _CurrentHealth: 0
+  _MaxHealth: 0
+  _Damage: 0
+  _Speed: 0
+  _AttackInterval: 0
+  _AttackRange: 0
 --- !u!1 &8895304179738928160
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +269,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
