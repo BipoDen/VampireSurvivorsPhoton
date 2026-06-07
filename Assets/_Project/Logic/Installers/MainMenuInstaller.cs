@@ -18,16 +18,11 @@ namespace _Project.Logic.Installers
 
         public override void InstallBindings()
         {
-            ConnectionBindings();
             BindUI();
             
             Container.BindInterfacesTo<MainMenuEntryPoint>().AsSingle();
         }
-
-        private void ConnectionBindings()
-        {
-            Container.BindInterfacesAndSelfTo<NetworkSessionService>().FromNew().AsSingle();
-        }
+        
 
         private void BindUI()
         {

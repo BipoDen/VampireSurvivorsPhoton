@@ -9,7 +9,7 @@ namespace _Project.Logic.Services
     public class UpgradeService
     {
         private int _pendingChoices;
-        private UpgradeRegistry _registry;
+        private readonly UpgradeRegistry _registry;
 
         public UpgradeService(UpgradeRegistry registry)
         {
@@ -20,8 +20,7 @@ namespace _Project.Logic.Services
         
         public event Action<IReadOnlyList<UpgradeConfig>, IReadOnlyList<int>> OnChoiceRequested;
         public event Action OnAllChoicesResolved;
-
-        public bool HasPending => _pendingChoices > 0;
+        
         
         public void EnqueueChoice()
         {

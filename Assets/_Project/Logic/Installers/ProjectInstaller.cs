@@ -10,18 +10,18 @@ namespace _Project.Logic.Installers
 {
     public class ProjectInstaller : MonoInstaller
     {
-        [SerializeField] private NetworkRunner _runner;
+        [SerializeField] private NetworkRunner _runnerPrefab;
         [SerializeField] private NetworkConfig _networkConfig;
 
         public override void InstallBindings()
         {
             Container.Bind<SceneLoader>().AsSingle();
             
-            var runner = Container.InstantiatePrefabForComponent<NetworkRunner>(_runner);
-            DontDestroyOnLoad(runner.gameObject);
-            Container.Bind<NetworkRunner>().FromInstance(runner).AsSingle();
-            Container.Bind<NetworkRunnerCallbacksAdapter>().FromNewComponentOn(runner.gameObject).AsSingle().NonLazy();
             Container.Bind<NetworkConfig>().FromInstance(_networkConfig).AsSingle();
+            Container.Bind<NetworkRunner>().FromInstance(_runnerPrefab).AsSingle();
+            Container.Bind<NetworkRunnerCallbacksAdapter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<NetworkSessionService>().AsSingle();
+
         }
     }
 }

@@ -20,6 +20,7 @@ namespace _Project.Logic.Installers
         [SerializeField] private GameplayUIView _uiView;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private CameraFollow _camera;
+        [SerializeField] private NetworkConfig _networkConfig;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private SpawnConfig _spawnConfig;
@@ -77,6 +78,8 @@ namespace _Project.Logic.Installers
             Container.Bind<EnemiesRepository>().AsSingle();
             Container.BindInterfacesAndSelfTo<TargetService>().AsSingle();
             Container.Bind<UpgradeService>().AsSingle();
+            Container.Bind<NetworkConfig>().FromInstance(_networkConfig).AsSingle();
+            Container.BindInterfacesAndSelfTo<BanService>().AsSingle();
         }
 
         private void BindUI()

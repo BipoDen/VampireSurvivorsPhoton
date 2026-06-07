@@ -21,7 +21,13 @@ namespace _Project.Logic.UI.Gameplay
             _upgradeService.OnChoiceRequested += HandleChoiceRequested;
             _upgradeService.OnAllChoicesResolved += HandleResolved;
             _view.OnUpgradeSelected += HandleUpgradeSelected;
+            _player.OnDespawn += Hide;
 
+            Hide();
+        }
+
+        private void Hide()
+        {
             _view.Hide();
         }
 
@@ -42,6 +48,7 @@ namespace _Project.Logic.UI.Gameplay
             _upgradeService.OnChoiceRequested -= HandleChoiceRequested;
             _upgradeService.OnAllChoicesResolved -= HandleResolved;
             _view.OnUpgradeSelected -= HandleUpgradeSelected;
+            _player.OnDespawn -= Hide;
         }
     }
 }

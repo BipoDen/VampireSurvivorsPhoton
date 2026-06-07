@@ -74,5 +74,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd1d269a68140b8ba254c56938c94a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Installers.ProjectInstaller
-  _runner: {fileID: -3303541693931436391, guid: 339504681122ddb4b86f334de33679f1, type: 3}
+  _runnerPrefab: {fileID: -3303541693931436391, guid: 339504681122ddb4b86f334de33679f1, type: 3}
+  _adapterPrefab: {fileID: 9175401974295196556, guid: 004066caf765ab543bdeb804e9ad372d, type: 3}
   _networkConfig: {fileID: 11400000, guid: 7a2d7eaad4ba82441817e7aa2796ff00, type: 2}

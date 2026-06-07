@@ -1,5 +1,6 @@
 using _Project.Logic.Config.Gameplay;
 using _Project.Logic.Entities;
+using _Project.Logic.Services;
 using Fusion;
 using UnityEngine;
 
@@ -9,21 +10,23 @@ namespace _Project.Logic.Factories
     {
         private NetworkPrefabRef _projectilePrefab;
         private ProjectileConfig _projectileConfig;
+        private INetworkSessionService _sessionService;
         private NetworkRunner _runner;
 
-        public ProjectileFactory(ProjectileConfig projectileConfig, NetworkRunner runner)
+        public ProjectileFactory(ProjectileConfig projectileConfig, INetworkSessionService sessionService)
         {
             _projectilePrefab = projectileConfig.ProjectilePrefab;
             _projectileConfig = projectileConfig;
-            _runner = runner;
+            _sessionService = sessionService;
         }
 
         public void CreateProjectile(Transform startPosition, Transform target, float damage)
         {
-            if(!_runner.IsServer)
+            var runner = _sessionService.Runner;
+            if(!runner.IsServer)
                 return;
             
-            NetworkProjectile projectile = _runner.Spawn(_projectilePrefab, startPosition.position, Quaternion.identity).GetComponent<NetworkProjectile>();
+            NetworkProjectile projectile = runner.Spawn(_projectilePrefab, startPosition.position, Quaternion.identity).GetComponent<NetworkProjectile>();
             Vector2 direction = (target.position - startPosition.position).normalized;
             projectile.Initialize(direction, _projectileConfig.Speed, _projectileConfig.LifeTime, damage);
         }

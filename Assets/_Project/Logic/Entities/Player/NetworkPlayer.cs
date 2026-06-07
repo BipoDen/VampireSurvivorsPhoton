@@ -2,6 +2,7 @@ using System;
 using _Project.Logic.Config.Gameplay;
 using _Project.Logic.Entities.Enemy;
 using _Project.Logic.Factories;
+using _Project.Logic.Multiplayer;
 using _Project.Logic.Multiplayer.Gameplay;
 using _Project.Logic.Services;
 using _Project.Logic.UI.Gameplay;
@@ -12,7 +13,7 @@ using Zenject;
 namespace _Project.Logic.Entities.Player
 {
     [RequireComponent(typeof(PlayerLevel), typeof(EntityStats))]
-    public class NetworkPlayer : NetworkBehaviour, IAfterSpawned
+    public class NetworkPlayer : NetworkBehaviour
     {
         [SerializeField] private Transform _healthBarAnchor;
         [SerializeField] private EntityStats _stats;
@@ -25,10 +26,12 @@ namespace _Project.Logic.Entities.Player
         private ProjectileFactory _projectileFactory;
         private UpgradeService _upgradeService;
         
+        [Networked] public int OwnerToken { get; set; }
         [Networked] private NetworkEnemy Target { get; set; }
         [Networked] private TickTimer AttackCooldown { get; set; }
 
         public bool IsAlive => _stats.CurrentHealth > 0;
+        private bool _viewBuilt;
         
         public event Action OnDied;
         public event Action OnDespawn;
@@ -51,16 +54,19 @@ namespace _Project.Logic.Entities.Player
             _projectileFactory = projectileFactory;
             _upgradeService = upgradeService;
         }
-        
-        public void AfterSpawned()
+
+        public void Initialize()
         {
-            if (HasStateAuthority)
+            if (HasStateAuthority && _stats.MaxHealth <= 0)
             {
                 _stats.Initialize(_config.Health, _config.Damage, _config.Speed,
                     _config.AttackInterval, _config.AttackRange);
                 _level.Initialize(_config.EXPtoLevel, _config.ExpMultiplier);
             }
-            
+        }
+
+        public void InitializeView()
+        {
             if (HasInputAuthority)
             {
                 _gameplayUIFactory.CreateHUDHealthBar(this);
@@ -80,6 +86,19 @@ namespace _Project.Logic.Entities.Player
             
             OnExpChanged?.Invoke(_level.CurrentEXP, _level.MaxEXP);
             OnHealthChanged?.Invoke(_stats.CurrentHealth, _stats.MaxHealth);
+        }
+        
+        public void OnResumed()
+        {
+            AttackCooldown = default;
+        }
+        
+        public override void Render()
+        {
+            if (_viewBuilt) return;
+            if (OwnerToken == 0) return;
+            _viewBuilt = true;
+            InitializeView();
         }
 
         public override void FixedUpdateNetwork()
@@ -114,7 +133,6 @@ namespace _Project.Logic.Entities.Player
         private void TryAttack()
         {
             if (!HasStateAuthority) return;
-            
             if (AttackCooldown.ExpiredOrNotRunning(Runner))
             {
                 Target = _targetService.GetClosestEnemy(transform.position, _stats.AttackRange);
@@ -128,7 +146,6 @@ namespace _Project.Logic.Entities.Player
         private void LevelUp()
         {
             if (!HasStateAuthority) return;
-
             RpcRequestChoice();
         }
         
@@ -152,19 +169,16 @@ namespace _Project.Logic.Entities.Player
         
         private void Die()
         {
-            if (!HasStateAuthority) return;
-            
-            _stats.OnHealthChanged -= OnHealthChanged;
-            _stats.OnDied -= Die;
-            _level.OnExpChanged -= OnExpChanged;
-            _level.OnLevelChanged -= LevelUp;
-            OnDied?.Invoke();
+            if (HasStateAuthority)
+                OnDied?.Invoke();
         }
 
         public override void Despawned(NetworkRunner runner, bool hasState)
         {
-            _playersRepository.UnregisterPlayer(Object.InputAuthority);
-            Die();
+            _stats.OnHealthChanged -= OnHealthChanged;
+            _stats.OnDied -= Die;
+            _level.OnExpChanged -= OnExpChanged;
+            _level.OnLevelChanged -= LevelUp;
             OnDespawn?.Invoke();
         }
     }

@@ -484,6 +484,7 @@ MonoBehaviour:
   _uiView: {fileID: 2713868218659331449, guid: 3df3ebb31fb5ee144bdc9fd0e7f85f18, type: 3}
   _canvas: {fileID: 1441699202}
   _camera: {fileID: 1058184285}
+  _networkConfig: {fileID: 11400000, guid: 7a2d7eaad4ba82441817e7aa2796ff00, type: 2}
   _playerConfig: {fileID: 11400000, guid: 8d5e0c7473bfdae48903f996931650ae, type: 2}
   _enemyConfig: {fileID: 11400000, guid: d0f404b927926724287f0df310cd9c6a, type: 2}
   _spawnConfig: {fileID: 11400000, guid: ca5017929cdb0b246a9a06deb15bfeb8, type: 2}

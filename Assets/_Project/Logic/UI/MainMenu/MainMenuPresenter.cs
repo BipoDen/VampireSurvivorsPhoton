@@ -8,7 +8,6 @@ namespace _Project.Logic.UI.MainMenu
     public class MainMenuPresenter : IWindowPresenter, IDisposable
     {
         private MainMenuView _view;
-        private NetworkRunner _runner;
         private INetworkSessionService _sessionService;
         private IWindowSwitcher _windowSwitcher;
 

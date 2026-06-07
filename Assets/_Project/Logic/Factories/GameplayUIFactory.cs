@@ -1,6 +1,7 @@
 using _Project.Logic.Entities.Player;
 using _Project.Logic.Services;
 using _Project.Logic.UI.Gameplay;
+using Fusion;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;

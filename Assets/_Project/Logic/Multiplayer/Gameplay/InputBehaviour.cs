@@ -18,27 +18,30 @@ namespace _Project.Logic.Multiplayer.Gameplay
         private SceneLoader _sceneLoader;
         private NetworkRunnerCallbacksAdapter _runnerAdapter;
         private JoystickInput _input;
+        private INetworkSessionService _sessionService;
         
         [Inject]
-        public void Construct(SceneLoader sceneLoader, NetworkRunner runner, NetworkRunnerCallbacksAdapter runnerAdapter, JoystickInput input)
+        public void Construct(SceneLoader sceneLoader, INetworkSessionService sessionService, NetworkRunnerCallbacksAdapter runnerAdapter, JoystickInput input)
         {
             _sceneLoader = sceneLoader;
             _runnerAdapter = runnerAdapter;
             _input = input;
-            RegisterOnRunner(runner);
+            _sessionService = sessionService;
+            RegisterOnRunner(sessionService.Runner);
             
             _runnerAdapter.Shutdown += OnShutdown;
             _runnerAdapter.Input += OnInput;
+            _sessionService.OnRunnerMigration += RegisterOnRunner;
         }
 
-        private void RegisterOnRunner(NetworkRunner runner)
+        public void RegisterOnRunner(NetworkRunner runner)
         {
             if (runner.IsRunning) {
                 runner.AddGlobal(this);
             }
         }
         
-        private void RemoveFromRunner() {
+        public void RemoveFromRunner() {
             if (Runner.IsRunning) {
                 Runner.RemoveGlobal(this);
             }
@@ -75,6 +78,9 @@ namespace _Project.Logic.Multiplayer.Gameplay
 
         private void OnDestroy()
         {
+            _runnerAdapter.Shutdown -= OnShutdown;
+            _runnerAdapter.Input -= OnInput;
+            _sessionService.OnRunnerMigration -= RegisterOnRunner;
             RemoveFromRunner();
         }
     }

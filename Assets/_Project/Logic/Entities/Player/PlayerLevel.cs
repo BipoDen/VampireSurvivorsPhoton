@@ -8,7 +8,7 @@ namespace _Project.Logic.Entities.Player
 {
     public class PlayerLevel : NetworkBehaviour
     {
-        [Networked, OnChangedRender(nameof(LevelChanged))] public int Level { get; private set; }
+        [Networked] public int Level { get; private set; }
         [Networked, OnChangedRender(nameof(ExpChanged))] public float CurrentEXP { get; private set; }
         [Networked] public float MaxEXP { get; private set; }
         [Networked] public float ExpModifier { get; private set; }
@@ -32,17 +32,13 @@ namespace _Project.Logic.Entities.Player
                 CurrentEXP -= MaxEXP;
                 MaxEXP *= ExpModifier;
                 Level++;
+                OnLevelChanged?.Invoke();
             }
         }
 
         private void ExpChanged()
         {
             OnExpChanged?.Invoke(CurrentEXP, MaxEXP);
-        }
-
-        private void LevelChanged()
-        {
-            OnLevelChanged?.Invoke();
         }
     }
 }

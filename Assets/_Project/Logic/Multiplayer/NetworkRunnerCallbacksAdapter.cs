@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using _Project.Logic.Constants;
 using _Project.Logic.Services;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Project.Logic.Multiplayer
 {
-    public class NetworkRunnerCallbacksAdapter : MonoBehaviour, INetworkRunnerCallbacks
+    public class NetworkRunnerCallbacksAdapter : INetworkRunnerCallbacks
     {
         public event Action<NetworkRunner, PlayerRef> PlayerJoined;
         public event Action<NetworkRunner, PlayerRef> PlayerLeft;
@@ -15,6 +17,14 @@ namespace _Project.Logic.Multiplayer
         public event Action<NetworkRunner, NetworkInput> Input;
         public event Action<NetworkRunner, ShutdownReason> Shutdown;
         public event Action<NetworkRunner, HostMigrationToken> HostMigration;
+        public event Action<NetworkRunner, NetworkRunnerCallbackArgs.ConnectRequest, byte[]> ConnectRequest;
+        
+        private readonly SceneLoader _sceneLoader;
+
+        public NetworkRunnerCallbacksAdapter(SceneLoader sceneLoader)
+        {
+            _sceneLoader = sceneLoader;
+        }
 
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
 
@@ -32,12 +42,22 @@ namespace _Project.Logic.Multiplayer
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
         {
+            if (shutdownReason == ShutdownReason.HostMigration) 
+                return;
             Shutdown?.Invoke(runner, shutdownReason);
+            _sceneLoader.LoadScene(GameConstants.MAIN_MENU_SCENE_NAME);
         }
 
-        public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
+        public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) 
+        {
+            runner.Shutdown();
+        }
 
-        public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
+        public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request,
+            byte[] token)
+        {
+            ConnectRequest?.Invoke(runner, request, token);
+        }
 
         public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
 
@@ -62,6 +82,7 @@ namespace _Project.Logic.Multiplayer
 
         public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
         {
+            Debug.Log("OnHostMigration");
             HostMigration?.Invoke(runner, hostMigrationToken);
         }
 

@@ -1,3 +1,4 @@
+using _Project.Logic.Services;
 using Fusion;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ namespace _Project.Logic.UI.Gameplay
         
         private NetworkRunner _runner;
 
-        public GameplayUIPresenter(NetworkRunner runner)
+        public GameplayUIPresenter(INetworkSessionService sessionService)
         {
-            _runner = runner;
+            _runner = sessionService.Runner;
         }
         
         public void Initialize(GameplayUIView view)

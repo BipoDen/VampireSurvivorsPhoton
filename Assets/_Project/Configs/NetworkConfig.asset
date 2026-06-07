@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68be386b28d3b047bd6f0e0fe9bde76, type: 3}
   m_Name: NetworkConfig
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Logic.Config.NetworkConfig
-  <PlayerPrefab>k__BackingField:
-    RawGuidValue: 79437621766367443999735ccf1abe56
-  <PlayerSpawnerPrefab>k__BackingField: {fileID: 8919443223539957520, guid: 61cc96c5bae40c7438771b4d475224e1, type: 3}
-  <InputManager>k__BackingField: {fileID: 4295142959051089387, guid: 70b34ac7caaf95f46a427285a53d3c8f, type: 3}
+  <DeathRegistry>k__BackingField:
+    RawGuidValue: 97b70ddda5b80f7408e018a39bf00a94

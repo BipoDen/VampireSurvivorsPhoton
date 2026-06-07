@@ -9,8 +9,6 @@ namespace _Project.Logic.EntryPoint
 {
     public class MainMenuEntryPoint : IInitializable
     {
-        private NetworkRunner _runner;
-        private NetworkRunnerCallbacksAdapter _adapter;
         private WindowsRepository _windowsRepository;
         private MainMenuView _mainView;
         private MainMenuPresenter _mainPresenter;
@@ -22,14 +20,9 @@ namespace _Project.Logic.EntryPoint
             MainMenuPresenter mainPresenter, 
             WindowsRepository windowsRepository, 
             IWindowSwitcher windowSwitcher, 
-            NetworkRunner runner, 
-            INetworkSessionService sessionService, 
-            NetworkRunnerCallbacksAdapter adapter, 
             JoinSessionPresenter joinSessionPresenter, 
             JoinSessionView joinSessionView)
         {
-            _runner = runner;
-            _adapter = adapter;
             _joinSessionPresenter = joinSessionPresenter;
             _joinSessionView = joinSessionView;
             _mainView = mainView;
@@ -41,7 +34,6 @@ namespace _Project.Logic.EntryPoint
         public void Initialize()
         {
             InitializeUI();
-            _runner.AddCallbacks(_adapter);
         }
 
         private void InitializeUI()

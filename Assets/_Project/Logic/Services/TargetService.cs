@@ -6,8 +6,8 @@ namespace _Project.Logic.Services
 {
     public class TargetService : ITargetService
     {
-        private PlayersRepository _playersRepository;
-        private EnemiesRepository _enemiesRepository;
+        private readonly PlayersRepository _playersRepository;
+        private readonly EnemiesRepository _enemiesRepository;
 
         public TargetService(PlayersRepository playersRepository, EnemiesRepository enemiesRepository)
         {

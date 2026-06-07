@@ -13,18 +13,15 @@ namespace _Project.Logic.EntryPoint
     {
         private GameplayUIPresenter _uiPresenter;
         private GameplayUIView _uiView;
-        private NetworkConfig _config;
         private EnemiesSpawner _enemiesSpawner;
         private NetworkRunnerCallbacksAdapter _runnerAdapter;
 
         public GameplayEntryPoint(GameplayUIPresenter uiPresenter, 
             GameplayUIView uiView, 
-            NetworkConfig config, 
             NetworkRunnerCallbacksAdapter runnerAdapter, EnemiesSpawner enemiesSpawner)
         {
             _uiPresenter = uiPresenter;
             _uiView = uiView;
-            _config = config;
             _runnerAdapter = runnerAdapter;
             _enemiesSpawner = enemiesSpawner;
         }
